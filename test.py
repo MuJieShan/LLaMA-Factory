@@ -37,6 +37,8 @@ def print_model_parameters(model):
 # checkpoint="../llama3/Llama-3.2-1B-Instruct"
 checkpoint="meta-llama/Llama-3.2-1B"
 # checkpoint="../llama3/Meta-Llama-3-8B-Instruct"
+d="databricks/databricks-dolly-15k"
+# d="../llama3/data/databricks-dolly-15k"
 tokenizer = AutoTokenizer.from_pretrained(checkpoint)
 tokenizer.pad_token = tokenizer.eos_token
 # tokenizer.pad_token = "<pad>"
@@ -324,7 +326,8 @@ def test1():
     print(shift_labels)
 
 def CausalLM_lp():
-    dataset = load_dataset("../llama3/data/databricks-dolly-15k", split="train")
+
+    dataset = load_dataset(d, split="train")
     print(dataset)
     dataset = dataset.shuffle(seed=3404).select(range(100))
     def preprocess_function(examples):
