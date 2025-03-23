@@ -38,6 +38,7 @@ def test_base_collator():
         **tokenizer_module,
     )
     p = tokenizer_module["tokenizer"].pad_token_id
+
     q = IGNORE_INDEX
     features = [
         {
