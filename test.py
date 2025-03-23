@@ -34,7 +34,8 @@ def print_model_parameters(model):
     trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)  # 可训练参数量
     print(f"Total Parameters: {total_params}")
     print(f"Trainable Parameters: {trainable_params}")
-checkpoint="../llama3/Llama-3.2-1B-Instruct"
+# checkpoint="../llama3/Llama-3.2-1B-Instruct"
+checkpoint="meta-llama/Llama-3.2-1B"
 # checkpoint="../llama3/Meta-Llama-3-8B-Instruct"
 tokenizer = AutoTokenizer.from_pretrained(checkpoint)
 tokenizer.pad_token = tokenizer.eos_token
@@ -432,7 +433,7 @@ def CausalLM_lp():
         # print(loss_gap)
     # model.to(device)
     for epoch in range(num_epochs):
-        k = [2.5e-4]
+        k = [5e-8,5e-7,5e-6,5e-5,2.5e-4]
         for k_i in k:
             model_lp = AutoModelForCausalLM.from_pretrained(checkpoint,use_cache=False,use_flash_attention_2=use_flash_attention,torch_dtype=torch.float16,device_map="auto")
             model_lp.config.pretraining_tp = 1
